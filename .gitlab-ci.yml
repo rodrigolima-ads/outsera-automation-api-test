@@ -1,0 +1,34 @@
+default:
+  image: maven:3.8-openjdk-17
+  
+stages:
+  - healthCheckTest
+  - sanityTests
+  - contratoTest
+  - funcionalTest
+
+
+"Teste HealthCheck":
+  stage: healthCheckTest
+  script:
+    - echo Executanto teste HealthCheck...
+    - mvn clean test clean -Dgroups=Health -Denv=hom -e
+
+"Sanity Tests":
+  stage: sanityTests
+  script:
+    - echo Executanto Sanity teste...
+    - mvn clean test clean -Dgroups=Sanity -Denv=hom -e
+
+"Testes de Contrato":
+  stage: contratoTest
+  script:
+    - echo Executanto testes de Contrato...
+    - mvn clean test clean -Dgroups=Contrato -Denv=hom -e
+
+"Testes funcionais":
+  stage: funcionalTest
+  script:
+    - echo Executanto testes Funcionais...
+    - mvn clean test clean -Dgroups=Funcional -Denv=hom -e
+
