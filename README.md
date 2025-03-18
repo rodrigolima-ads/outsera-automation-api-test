@@ -4,7 +4,7 @@
 ## Automação de testes
 
 Este projeto foi elaborado pensando em exemplificar uma cobertura de testes passando por diversas camadas do teste [HealtCheck, Sanity, Contrato, Funcional].<br> 
-O projeto oferece a possibilidade de rodas os testes localmente evitando assim a correncia de utilizar a API publica, basta starta uma imagem da API atraves do docker-compose.yml e alterar o environment para 'env=local',<br>
+O projeto oferece a possibilidade de rodas os testes localmente evitando assim a concorrencia ao utilizar a API publica, basta starta a imagem da API atraves do docker-compose.yml e alterar o environment para 'env=local',<br>
 ou podemos usar a API publica por default o projeto ja vem configurado para usa-lá 'env=hom'.<br>
 
 
