@@ -3,9 +3,16 @@
 
 ## Automação de testes
 
-Este projeto foi elaborado pensando em exemplificar uma cobertura de testes em diversas camadas, Podemos utilizar dois tipos de ambiente para rodar os testes 'local'<br> 
-onde podemos startar uma imagem da API e assim evitar correncia da API publica ou 'hom' utilizando a API publica diponivel no link abaixo..<br>
+Este projeto foi elaborado pensando em exemplificar uma cobertura de testes passando por diversas camadas do teste [HealtCheck, Sanity, Contrato, Funcional].<br> 
+O projeto oferece a possibilidade de rodas os testes localmente evitando assim a correncia de utilizar a API publica, basta starta uma imagem da API atraves do docker-compose.yml e alterar o environment para 'env=local',<br>
+ou podemos usar a API publica por default o projeto ja vem configurado para usa-lá 'env=hom'.<br>
+
+
+### Swagger
 https://petstore.swagger.io/
+
+### Repositorio
+https://gitlab.com/rodrigo.qa/outsera-automation-api-test
 
 
 -HealtCheck<br>
@@ -22,9 +29,13 @@ Para execução do projeto, é necessário possuir as seguintes instalações na
 - Docker (Opcional)
 
 ### Executando o projeto
-Após atender as pré-condições, executar o comando `mvn install` para baixar as dependências;
+Após atender as pré-condições,<br>
+executar o comando `mvn install` para baixar as dependências;
 
-Caso opter roda local: `docker-compose up -d`. obs:(requerido docker)<br>
+Caso opter por roda localmente:<br>
+Sera necessario subir a imagem da API, `docker-compose up -d`.<br> 
+Obs:(requerido docker)<br>
+
 Para executar os testes, executar o comando: `mvn test clean -Dgroups=Regressivo -Denv=local -e`.<br>
 -Dgroups: Tag referente ao teste(Opcional)<br> 
 -Denv: Ambiente(Default=hom)<br>
