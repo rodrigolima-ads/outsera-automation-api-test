@@ -1,75 +1,114 @@
-# PROVA TECNICA AUTOMAÇÃO DE TESTES API
+# Prova Técnica - Automação de Testes API
 
+## Sobre o projeto
 
-## Automação de testes
+Este projeto foi desenvolvido para demonstrar uma cobertura de testes abrangendo diversas camadas, incluindo:
+- **HealthCheck**
+- **Sanity**
+- **Contrato**
+- **Funcional**
 
-Este projeto foi elaborado pensando em exemplificar uma cobertura de testes passando por diversas camadas do teste [HealtCheck, Sanity, Contrato, Funcional].<br> 
-O projeto oferece a possibilidade de rodas os testes localmente evitando assim a concorrencia ao utilizar a API publica, basta starta a imagem da API atraves do docker-compose.yml e alterar o environment para 'env=local',<br>
-ou podemos usar a API publica por default o projeto ja vem configurado para usa-lá 'env=hom'.<br>
+Ele permite a execução dos testes localmente, evitando concorrência ao utilizar a API pública. Para isso, basta iniciar a imagem da API através do `docker-compose.yml` e configurar o ambiente para `env=local`.
 
+Por padrão, o projeto já vem configurado para utilizar a API pública com `env=hom`.
 
-### Swagger
-https://petstore.swagger.io/
+---
+## Documentação da API
 
-### Repositorio
-https://gitlab.com/rodrigo.qa/outsera-automation-api-test
+Swagger: [Petstore Swagger](https://petstore.swagger.io/)
 
+Repositório: [GitLab - Rodrigo QA](https://gitlab.com/rodrigo.qa/outsera-automation-api-test)
 
--HealtCheck<br>
--Sanity<br>
--Contrato<br>
--Funcional<br>
+---
+## Estrutura do projeto
 
+### Diretórios principais
 
-### Pré-condições
+#### **Main**
+- **client**: Contém as classes responsáveis por realizar as requisições para o back-end.
+- **dto**: Inclui o mapeamento dos atributos e a construção dos objetos específicos para cada API.
+- **factory**: Contém classes ou objetos utilizados para retornar dados fictícios ou similares aos dados de produção.
+- **utils**: Contém classes auxiliares para a construção dos testes, enumerações e configurações de ambiente.
 
-Para execução do projeto, é necessário possuir as seguintes instalações na máquina:
-- Java 17 ou superior;
-- Maven.
-- Docker (Opcional)
+#### **Test**
+- **sanity**: Valida os cenários mais críticos da aplicação.
+- **contrato**: Agrupa os testes que validam o contrato das requisições.
+- **funcional**: Contém os testes funcionais do projeto.
+- **healthCheck**: Verifica se o serviço está disponível.
 
-### Executando o projeto
-Após atender as pré-condições,<br>
-executar o comando `mvn install` para baixar as dependências;
+---
+## Requisitos
 
-Caso opter por roda localmente:<br>
-Sera necessario subir a imagem da API, `docker-compose up -d`.<br> 
-Obs:(requerido docker)<br>
+Para executar o projeto, é necessário ter instalado:
+- **Java 17** ou superior
+- **Maven** 
+- **Lombok** Instalar o plugin Lombok e habilita-lo na IDE
+- **Docker** (Opcional, caso deseje rodar os testes localmente)
 
-Para executar os testes, executar o comando: `mvn test clean -Dgroups=Regressivo -Denv=local -e`.<br>
--Dgroups: Tag referente ao teste(Opcional)<br> 
--Denv: Ambiente(Default=hom)<br>
+---
 
-### Tags
-- Healthcheck
-- Sanity
-- Contrato
-- Funcional
+## Tecnologias e Bibliotecas
+- Java 17
+- Maven
+- [RestAssured](https://rest-assured.io/docs)
+- [Junit 5](https://junit.org/junit5/docs/current/user-guide/)
+- [Json Schema Validator](https://github.com/rest-assured/rest-assured/wiki/Usage#json-schema-validation)
+- [Lombok](https://projectlombok.org/)
+- [JavaFaker](https://www.baeldung.com/java-faker)
 
-### Estrutura dos testes
+---
 
-#### Main
-- **client:** contém as classes que irão realizar as requisições para o back-end;
-- **dto:** inclui o mapeamento dos atributos e contrução dos objetos específicos para cada API;
-- **factory:** classe ou objetos utilizados para retornar dados fictícios ou similares aos dados de produção.
-- **utils:** contém classes auxiliares na construção dos testes, enumerações e configurações de ambiente.
+## Como executar os testes
 
+### Instalação das dependências
 
-#### Test
-- **Sanity:** verifcar os cenarios mais criticos da aplicação;
-- **Contrato:** agrupam os testes que validam o contrato das requisições;
-- **functional:** agrupam os testes funcionais do projeto;
-- **healthCheck:** verificam se o serviço está disponível;
+Antes de executar os testes, baixe as dependências do projeto com o comando:
+```sh
+mvn install
+```
 
-### CI/CD
+### Execução local
 
-#### gitlab.ci
-Foi implementado uma soluçâo para rodar os testes utilizado o CI do gitlab.ci.<br>
-Os testes seram executados em estágios onde apenas vamos avançar para os proximos em caso de sucesso.
+Se optar por rodar os testes localmente, será necessário iniciar a API via Docker:
+```sh
+docker-compose up -d
+```
+> **Nota**: Essa opção requer o Docker instalado na máquina.
 
-![img_1.png](img_1.png)
+### Execução dos testes
 
-#### Relatórios
-Após a execução dos testes é possível gerar o relatório com ajuda da biblioteca do Allure, desta forma é possivel visualizar todos resultados dos testes assim como os ‘logs’ das requests/response de forma mais simplificada.<br>
-Para visualizar o relatório, basta executar o comando: `mvn allure:serve`<br>
-![img.png](img.png)
+Para rodar os testes, utilize:
+```sh
+mvn test clean -Dgroups=Regressivo -Denv=local -e
+```
+Parâmetros:
+- `-Dgroups`: Tag referente ao teste (Opcional)
+- `-Denv`: Ambiente a ser utilizado (Default = `hom`)
+
+---
+## Tags disponíveis
+
+- **HealthCheck**
+- **Sanity**
+- **Contrato**
+- **Funcional**
+
+---
+## Integração Contínua (CI/CD)
+
+Foi implementada uma solução para rodar os testes utilizando o **CI do GitLab**. Os testes são executados em estágios, garantindo que avançamos para as próximas fases apenas em caso de sucesso.
+
+![Pipeline CI/CD](src/test/resources/imagens/img_ci.png)
+
+---
+
+## Relatórios de Testes
+
+Após a execução, é possível gerar relatórios utilizando a biblioteca **Allure**. Esses relatórios permitem visualizar os resultados dos testes, bem como os logs das requisições e respostas de forma simplificada.
+
+Para gerar o relatório, execute:
+```sh
+mvn allure:serve
+```
+
+![img.png](src/test/resources/imagens/img_allure.png)
